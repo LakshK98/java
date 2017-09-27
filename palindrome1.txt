@@ -1,0 +1,112 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+     static void pali(StringBuilder a, StringBuilder b,StringBuilder e,ArrayList<String> arr,int flag){
+
+         a.reverse();
+         int d = a.length();
+        
+                for(int i=0;i<=b.length()-d;i++){
+                    if(a.toString().equals(b.substring(i,i+d))){
+                      if(flag==0){
+                      if(i!=0){
+                            e.insert(e.length(),b.charAt(i-1));
+                            d+=1;
+                        }
+                          arr.add(e.toString()+a.toString());
+                        
+                   /*     if(arr.isEmpty()){
+                            arr.add(e.toString()+a.toString());
+                           
+                        }
+                       else if( d>arr.get(0).length() ){
+                       //     System.out.println("pp");
+                           //  arr.clear();      
+                            arr.add(e.toString()+a.toString());
+                        }
+                        else if(d==arr.get(0).length() ){
+                         //   System.out.println("dwc");
+                            arr.add(e.toString()+a.toString());
+                        }*/
+                      }
+                    else{
+                        if(i+d<=b.length()){
+                            a.insert(a.length(),b.charAt(i+d));
+                            d+=1;
+                        }
+                        
+                          arr.add(a.toString()+e.toString());
+                        
+/*                        if(arr.isEmpty()){
+                            arr.add(a.toString()+e.toString());
+                        //     System.out.println("pp");
+                        
+                        }
+                        else if( d>arr.get(0).length() ){
+                            System.out.println("pp");
+                //             arr.clear();      
+                            arr.add(a.toString()+e.toString());
+                        }
+                        else if(d==arr.get(0).length() ){
+                        //    System.out.println("dwc");
+                            arr.add(a.toString()+e.toString());
+                        }
+                        */
+                        }
+                    }
+                
+                }
+                    
+        }
+        
+    public static void main(String[] args) {
+        int l,i,j,t;
+        
+        ArrayList<String> arr = new ArrayList<String>();
+        Scanner sc = new Scanner(System.in);
+        t=sc.nextInt();
+sc.nextLine();
+        for(l=0;l<t;l++){
+            arr.clear();
+            int flag=0;
+        StringBuilder temp = new StringBuilder();
+        StringBuilder a = new StringBuilder(sc.nextLine());
+        StringBuilder b = new StringBuilder(sc.nextLine());
+       //         System.out.println(a.toString());
+         //       System.out.println(b.toString());
+        
+     //   a= sc.nextLine();
+       // b= sc.nextLine();
+        
+                 if(b.length()<a.length()){
+            temp=b;
+            b=a;
+            a=temp;
+                     flag=1;
+        }
+              
+        for(i=0;i<a.length();i++){
+            for(j=a.length();j>i;j--){
+               
+               pali(new StringBuilder(a.substring(i,j)),b,new StringBuilder(a.substring(i,j)),arr,flag); 
+   
+            }
+        }
+        arr.sort(Comparator.comparing(String::length));
+     //   Collections.sort(arr);
+        
+   //        System.out.println(arr.get(0));
+        if(arr.isEmpty())
+              System.out.println(-1);
+        else{
+        for(String x:arr){
+            if(arr.get(arr.size()-1).length()==x.length() ){
+                 System.out.println(x);
+                break;
+        }
+        }
+        }
+    }
+    }    
+}
